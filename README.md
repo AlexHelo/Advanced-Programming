@@ -1,2 +1,4 @@
-# tc2025-actividad-1-equipo-13-alejandro-jose-carlos
-tc2025-actividad-1-equipo-13-alejandro-jose-carlos created by GitHub Classroom
+# Actividad 1
+<a href="https://github.com/Josekeitor">José Carlos Acosta</a>
+<a href="https://github.com/AlexHelo">Alex Helo</a>
+
