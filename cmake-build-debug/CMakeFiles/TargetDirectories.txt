@@ -1,0 +1,3 @@
+/Users/jc/CLionProjects/programacionAvanzada/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/Users/jc/CLionProjects/programacionAvanzada/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/jc/CLionProjects/programacionAvanzada/cmake-build-debug/CMakeFiles/programacionAvanzada.dir
