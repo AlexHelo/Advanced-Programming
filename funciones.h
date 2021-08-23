@@ -14,28 +14,58 @@ typedef enum
 
 typedef struct
 {
-    char nombre[50];
-    char apellidos[50];
+    char *nombre;
+    char *apellidos;
     int edad;
     roles_tripulacion rol;
 } persona;
 
 typedef struct
         {
-    char nombre[50];
+    char *nombre;
     float eslora;
     float manga;
     int max_tripulantes;
     persona *tripulacion;
         } embarcacion;
+char *getln()
+{
+    char *line = NULL, *tmp = NULL;
+    size_t size = 0, index = 0;
+    int ch = EOF;
 
+    while (ch) {
+        ch = getc(stdin);
 
-embarcacion agregarEmbarcacion(embarcacion * embarcaciones, int fin)
+        /* Check if we need to stop. */
+        if (ch == EOF || ch == '\n')
+            ch = 0;
+
+        /* Check if we need to expand. */
+        if (size <= index) {
+            size += 1;
+            tmp = realloc(line, size);
+            if (!tmp) {
+                free(line);
+                line = NULL;
+                break;
+            }
+            line = tmp;
+        }
+
+        /* Actually store the thing. */
+        line[index++] = ch;
+    }
+
+    return line;
+}
+
+void agregarEmbarcacion(void * embarcaciones, int fin)
 {
     embarcacion newBarco;
 
-    printf(" Agregue el nombre de la embarcación: \n ");
-    scanf("%s", &newBarco.nombre);
+    printf(" Agregue el nombre de la embarcación: \n");
+    newBarco.nombre = getln();
     printf(" Agregue la eslora: \n ");
     scanf("%f", &newBarco.eslora);
 
@@ -45,14 +75,12 @@ embarcacion agregarEmbarcacion(embarcacion * embarcaciones, int fin)
     printf(" Agregue  el número máximo de tripulantes: \n");
     scanf("%d", &newBarco.max_tripulantes);
 
+    *(embarcacion *)(embarcaciones + fin + 1) = newBarco;
 
-
-    *(embarcaciones + fin + 1) = newBarco;
-
-    printf("%s\n", embarcaciones[fin+1].nombre);
-    printf("%f\n", embarcaciones[fin+1].eslora);
-    printf("%f\n", embarcaciones[fin+1].manga);
-    printf("%d\n", embarcaciones[fin+1].max_tripulantes);
+    printf("%s\n", ((embarcacion *)(embarcaciones + fin + 1))->nombre);
+    printf("%f\n", ((embarcacion *)(embarcaciones + fin + 1))->eslora);
+    printf("%f\n", ((embarcacion *)(embarcaciones + fin + 1))->manga);
+    printf("%d\n", ((embarcacion *)(embarcaciones + fin + 1))->max_tripulantes);
 }
 
 void setTripulante(int opcion)
@@ -78,5 +106,6 @@ void boatMenu() {
     printf("--- Opciones --- \n1-Incorporar Barcos\n2-Incorporar Tripulantes\n3-Ver Barcos\n4-Ver Tripulantes\n0-Terminar\nEscoge tu opcion: ");
 
 }
+
 
 #endif /* funciones_h */
