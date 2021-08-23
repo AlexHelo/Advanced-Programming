@@ -2,41 +2,25 @@
 #include <stdio.h>
 #include "funciones.h"
 
-typedef enum
-{
-    arponero,
-    cocinero,
-    vigia,
-    capitan,
-    medico
-} roles_tripulacion;
-
-typedef struct
-{
-    char *nombre;
-    char *apellidos;
-    int edad;
-    roles_tripulacion rol;
-} persona;
-
-struct embarcacion
-        {
-    char *nombre;
-    float eslora;
-    float manga;
-    int max_tripulantes;
-    persona *tripulacion;
-        };
 
 typedef void (*opcion_t)(int);
 void menu_f(opcion_t *opciones);
+void imprimirEmbarcaciones(embarcacion * inicio, embarcacion * fin)
+{
+    for (embarcacion * aux = inicio; aux < fin; ++aux) {
+        printf("%s\t", aux->nombre, " %f ", aux->eslora, " %f ", aux->manga, " %d", aux->max_tripulantes);
+    }
 
+    printf("\n");
+}
 int main()
 {
-
+    embarcacion * embarcaciones = (embarcacion *) malloc(sizeof(embarcacion));
     opcion_t *menu = (opcion_t *)malloc(4 * sizeof(opcion_t));
-
-    *menu = setBarcos;
+    printf("%d", sizeof(embarcacion));
+    *embarcaciones = agregarEmbarcacion();
+    printf("%s \n",*embarcaciones->nombre);
+    *menu = agregarEmbarcacion;
     *(menu + 1) = setTripulante;
     *(menu + 2) = getBarcos;
     *(menu + 3) = getTripulante;
@@ -52,7 +36,7 @@ void menu_f(opcion_t *opciones)
 
     do
     {
-        printf("--- Opciones --- \n1-Incorporar Barcos\n2-Incorporar Tripulantes\n3-Ver Barcos\n4-Ver Tripulantes\n0-Terminar\nEscoge tu opcion: ");
+        printf("--- Opciones --- \n1-Agregar Barco\n2-Agregar Tripulante\n3-Ver Barcos\n4-Ver Tripulantes\n0-Terminar\nEscoge tu opcion: ");
 
         scanf("%d", &opcion);
 
@@ -62,3 +46,10 @@ void menu_f(opcion_t *opciones)
         }
     } while (opcion > 0 && opcion <= 4);
 }
+
+void loadMenu(opcion_t *opciones){
+    int opcion;
+
+
+}
+

@@ -7,11 +7,15 @@
 #IncludeRegexTransform: 
 
 /Users/jc/CLionProjects/programacionAvanzada/funciones.h
-
-/Users/jc/CLionProjects/programacionAvanzada/main.c
 stdio.h
 -
 stdlib.h
+-
+
+/Users/jc/CLionProjects/programacionAvanzada/main.c
+stdlib.h
+-
+stdio.h
 -
 funciones.h
 /Users/jc/CLionProjects/programacionAvanzada/funciones.h

@@ -1,14 +1,52 @@
 #ifndef funciones_h
 #define funciones_h
+#include <stdio.h>
+#include <stdlib.h>
 
-void setBarcos(int);
-void setTripulante(int);
-void getBarcos(int);
-void getTripulante(int);
-
-void setBarcos(int opcion)
+typedef enum
 {
-    printf("%d - Agregando barco...\n\n", opcion);
+    arponero,
+    cocinero,
+    vigia,
+    capitan,
+    medico
+} roles_tripulacion;
+
+typedef struct
+{
+    char *nombre;
+    char *apellidos;
+    int edad;
+    roles_tripulacion rol;
+} persona;
+
+typedef struct
+        {
+    char *nombre;
+    float eslora;
+    float manga;
+    int max_tripulantes;
+    persona *tripulacion;
+        } embarcacion;
+
+
+embarcacion agregarEmbarcacion()
+{
+    embarcacion newBarco;
+
+    printf(" Agregue el nombre de la embarcación: \n ");
+    scanf("%s", &newBarco.nombre);
+
+    printf(" Agregue la eslora: \n ");
+    scanf("%f", &newBarco.eslora);
+
+    printf(" Agregue  la manga: \n");
+    scanf("%f", &newBarco.manga);
+
+    printf(" Agregue  el número máximo de tripulantes: \n");
+    scanf("%d", &newBarco.max_tripulantes);
+
+    return newBarco;
 }
 
 void setTripulante(int opcion)
@@ -24,6 +62,15 @@ void getBarcos(int opcion)
 void getTripulante(int opcion)
 {
     printf("%d - Mostrando tripulantes...\n\n", opcion);
+}
+
+void startMenu(int opcion) {
+    printf("--- Opciones --- \n1-Incorporar Barcos\n2-Incorporar Tripulantes\n3-Ver Barcos\n4-Ver Tripulantes\n0-Terminar\nEscoge tu opcion: ");
+}
+
+void boatMenu() {
+    printf("--- Opciones --- \n1-Incorporar Barcos\n2-Incorporar Tripulantes\n3-Ver Barcos\n4-Ver Tripulantes\n0-Terminar\nEscoge tu opcion: ");
+
 }
 
 #endif /* funciones_h */
