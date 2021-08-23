@@ -8,22 +8,22 @@ void getTripulante(int);
 
 void setBarcos(int opcion)
 {
-    printf("%d - Agregando barco...\n", opcion);
+    printf("%d - Agregando barco...\n\n", opcion);
 }
 
 void setTripulante(int opcion)
 {
-    printf("%d - Agregando tripulante...\n", opcion);
+    printf("%d - Agregando tripulante...\n\n", opcion);
 }
 
 void getBarcos(int opcion)
 {
-    printf("%d - Mostrando barcos...\n", opcion);
+    printf("%d - Mostrando barcos...\n\n", opcion);
 }
 
 void getTripulante(int opcion)
 {
-    printf("%d - Mostrando tripulantes...\n", opcion);
+    printf("%d - Mostrando tripulantes...\n\n", opcion);
 }
 
 #endif /* funciones_h */

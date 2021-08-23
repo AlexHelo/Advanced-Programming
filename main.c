@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include <stdio.h>
 #include "funciones.h"
 
@@ -19,21 +20,19 @@ typedef struct
 } persona;
 
 struct embarcacion
-{
+        {
     char *nombre;
     float eslora;
     float manga;
     int max_tripulantes;
     persona *tripulacion;
-};
+        };
 
 typedef void (*opcion_t)(int);
 void menu_f(opcion_t *opciones);
 
 int main()
 {
-    printf("Hello, World!\n");
-    return 0;
 
     opcion_t *menu = (opcion_t *)malloc(4 * sizeof(opcion_t));
 
@@ -43,6 +42,8 @@ int main()
     *(menu + 3) = getTripulante;
 
     menu_f(menu);
+
+    return 0;
 }
 
 void menu_f(opcion_t *opciones)
@@ -51,7 +52,7 @@ void menu_f(opcion_t *opciones)
 
     do
     {
-        printf("--- Opciones --- \n1-Incorporar Barcos\n2-Incorporar Tripulantes\n3-Ver Barcos\n4-Ver Tripulantes\n0-Terminar\nEscoge tu opción: ");
+        printf("--- Opciones --- \n1-Incorporar Barcos\n2-Incorporar Tripulantes\n3-Ver Barcos\n4-Ver Tripulantes\n0-Terminar\nEscoge tu opcion: ");
 
         scanf("%d", &opcion);
 
