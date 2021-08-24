@@ -4,31 +4,28 @@
 
 
 typedef void (*opcion_t)(int);
-void menu_f(opcion_t *opciones);
+void menu_f(opcion_t *opciones, embarcacion * embarcaciones, int * embarcaciones_count);
 
 int main()
 {
-    int embarcacionesCount = 0;
-    embarcacion * embarcaciones = (embarcacion *) malloc(sizeof(embarcacion));
+    static int embarcacionesCount = 0;
+    static embarcacion * embarcaciones;
+    embarcaciones = (embarcacion *) malloc(sizeof(embarcacion));
     opcion_t *menu = (opcion_t *)malloc(4 * sizeof(opcion_t));
 
-    agregarEmbarcacion(embarcaciones, &embarcacionesCount);
+    *menu = agregarEmbarcacion;
+    *(menu + 1) = agregarTripulante;
+    *(menu + 2) = imprimirEmbarcaciones;
+    *(menu + 3) = imprimirTripulantes;
 
-    imprimirEmbarcaciones(embarcaciones, 1);
+    menu_f(menu, embarcaciones, embarcacionesCount);
 
-
-    *menu = add;
-    *(menu + 1) = add;
-    *(menu + 2) = add;
-    *(menu + 3) = add;
-
-    menu_f(menu);
-
-
+    free(embarcaciones);
+    free(menu);
     return 0;
 }
 
-void menu_f(opcion_t *opciones)
+void menu_f(opcion_t *opciones, embarcacion * embarcaciones, int * embarcaciones_count)
 {
     int opcion;
 
@@ -40,8 +37,11 @@ void menu_f(opcion_t *opciones)
 
         if (opcion > 0 && opcion <= 4)
         {
+            if (opcion == 1) {
+
+            }
             /* Hacer estos parámetros dinámicos */
-            (*(opciones + opcion - 1))(opcion);
+            add((*(opciones + opcion - 1)), embarcaciones, embarcaciones_count);
         }
     } while (opcion > 0 && opcion <= 4);
 }
