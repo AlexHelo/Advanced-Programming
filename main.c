@@ -18,14 +18,14 @@ int main()
     *(menu + 2) = imprimirEmbarcaciones;
     *(menu + 3) = imprimirTripulantes;
 
-    menu_f(menu, embarcaciones, embarcacionesCount);
+    menu_f(menu, embarcaciones, &embarcacionesCount);
 
     free(embarcaciones);
     free(menu);
     return 0;
 }
 
-void menu_f(opcion_t *opciones, embarcacion * embarcaciones, int * embarcaciones_count)
+void menu_f(opcion_t *opciones, embarcacion *embarcaciones, int *embarcaciones_count)
 {
     int opcion;
 
@@ -37,9 +37,7 @@ void menu_f(opcion_t *opciones, embarcacion * embarcaciones, int * embarcaciones
 
         if (opcion > 0 && opcion <= 4)
         {
-            if (opcion == 1) {
 
-            }
             /* Hacer estos parámetros dinámicos */
             add((*(opciones + opcion - 1)), embarcaciones, embarcaciones_count);
         }

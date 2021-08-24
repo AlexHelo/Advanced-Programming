@@ -3,10 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef void (*t_function)(void * , int *);
 
-/* Función genérica */
-void add(t_function, void *, int *);
 
 
 typedef enum
@@ -34,6 +31,15 @@ typedef struct
     int tripulacion_actual;
     persona *tripulacion;
         } embarcacion;
+
+
+typedef void (*t_function)(embarcacion * , int *);
+
+/* Función genérica */
+void add(t_function, embarcacion *, int *);
+
+
+
 char *getln()
 {
     char *line = NULL, *tmp = NULL;
@@ -66,11 +72,14 @@ char *getln()
     return line;
 }
 
-void agregarEmbarcacion(void * embarcaciones, int *fin)
+
+
+void agregarEmbarcacion(embarcacion * embarcaciones, int *fin)
 {
     embarcacion newBarco;
 
     printf(" Agregue el nombre de la embarcación: \n");
+    getln();
     newBarco.nombre = getln();
     printf(" Agregue la eslora: \n ");
     scanf("%f", &newBarco.eslora);
@@ -80,38 +89,42 @@ void agregarEmbarcacion(void * embarcaciones, int *fin)
 
     printf(" Agregue  el número máximo de tripulantes: \n");
     scanf("%d", &newBarco.max_tripulantes);
-
     newBarco.tripulacion = (persona *) malloc(sizeof (persona));
     newBarco.tripulacion_actual = 0;
-    embarcaciones = (void *) realloc(embarcaciones, (*fin+1)*sizeof(embarcacion));
-    *(embarcacion *)(embarcaciones + *fin + 1) = newBarco;
 
-    printf("%s\n", ((embarcacion *)(embarcaciones + *fin + 1))->nombre);
-    printf("%f\n", ((embarcacion *)(embarcaciones + *fin + 1))->eslora);
-    printf("%f\n", ((embarcacion *)(embarcaciones + *fin + 1))->manga);
-    printf("%d\n", ((embarcacion *)(embarcaciones + *fin + 1))->max_tripulantes);
+    if (*fin == 0){
+        *embarcaciones = newBarco;
+    } else {
+        int newFin = *fin + 1;
+        embarcaciones = (embarcacion *) realloc(embarcaciones, newFin * sizeof(embarcacion));
+        *(embarcaciones + newFin) = newBarco;
+
+        embarcacion segundaPos = *(embarcaciones + newFin);
+        printf("%s \n", segundaPos.nombre);
+    }
+
     *fin =  *fin + 1;
     printf("fin: %d\n", *fin);
 }
 
-void imprimirEmbarcaciones(void * embarcaciones, int  *fin){
-    embarcacion * aux = embarcaciones;
-    embarcacion * last = embarcaciones + *fin;
+void imprimirEmbarcaciones(embarcacion * embarcaciones, int  *fin){
+    int newFin = *fin;
+    embarcacion * start = embarcaciones;
+    embarcacion *end  = (embarcaciones + newFin + 1);
 
-    printf("fin: %d", *fin);
-
-    for (; aux < last; ++aux) {
-
-        printf("%s\n", aux->nombre);
-        printf("%f\n", aux->eslora);
-        printf("%f\n", aux->manga);
-        printf("%d\n", aux->max_tripulantes);
+    for(; start < end; start++){
+        printf("%s , %f metros X %f metros, %d tripulantes\n", start->nombre, start->eslora, start->manga, start->max_tripulantes);
     }
 }
 
-void agregarTripulante(embarcacion bote)
+void agregarTripulante(embarcacion* embarcaciones, *fin)
 {
-    if(bote.tripulacion_actual == bote.max_tripulantes){
+    printf("Selecciona la embarcación a la cual quieres agregar un tripulante: \n");
+    imprimirEmbarcaciones(embarcaciones, fin);
+    int eleccion;
+    scanf("%d", &eleccion);
+    *(embarcaciones + (eleccion-1));
+    if((*(embarcaciones + (eleccion-1))).tripulacion_actual == (*(embarcaciones + (eleccion-1))).max_tripulantes){
         printf("La tripulación de este barco ya está al límite");
         return;
     }
@@ -129,47 +142,36 @@ void agregarTripulante(embarcacion bote)
     printf("edad: %d", tripulante.edad);
     printf(" Escoga un rol para el tripulante: \n");
     printf("1: Arponero \n 2: Cocinero\n 3: Vigia \n 4: Capitan\n");
+    int eleccion1;
+    scanf("%d", &eleccion1);
+    tripulante.rol = eleccion1 -1;
+
+    if((*(embarcaciones + (eleccion-1))).tripulacion_actual == 0){
+        (*(embarcaciones + (eleccion-1))).tripulacion_actual++;
+        *(*(embarcaciones + (eleccion-1))).tripulacion = tripulante;
+    }else{
+        (*(embarcaciones + (eleccion-1))).tripulacion_actual++;
+        (*(embarcaciones + (eleccion-1))).tripulacion = (persona*) realloc((*(embarcaciones + (eleccion-1))).tripulacion, ((*(embarcaciones + (eleccion-1))).tripulacion_actual)*sizeof (persona));
+        *((*(embarcaciones + (eleccion-1))).tripulacion + (*(embarcaciones + (eleccion-1))).tripulacion_actual) = tripulante;
+    }
+}
+
+void imprimirTripulantes(embarcacion *embarcaciones, int* fin)
+{
+    printf("Selecciona la embarcación a la cual quieres agregar un tripulante: \n");
+    imprimirEmbarcaciones(embarcaciones, fin);
     int eleccion;
     scanf("%d", &eleccion);
-    if (eleccion == 1){
-        tripulante.rol = arponero;
-    }
-    if (eleccion == 2){
-        tripulante.rol = cocinero;
-    }
-    if (eleccion == 3){
-        tripulante.rol = vigia;
-    }
-    if (eleccion == 4){
-        tripulante.rol = capitan;
-    }
-
-    if(bote.tripulacion_actual == 0){
-        bote.tripulacion_actual++;
-        *bote.tripulacion = tripulante;
-    }else{
-        bote.tripulacion_actual++;
-        bote.tripulacion = (persona*) realloc(bote.tripulacion, (bote.tripulacion_actual)*sizeof (persona));
-        *(bote.tripulacion + bote.tripulacion_actual) = tripulante;
-    }
-}
-
-void getBarcos(int opcion)
-{
-    printf("%d - Mostrando barcos...\n\n", opcion);
-}
-
-void imprimirTripulantes(embarcacion bote)
-{
-    persona * start = bote.tripulacion;
-    persona * end = (bote.tripulacion + bote.tripulacion_actual);
+    *(embarcaciones + (eleccion-1));
+    persona * start = (*(embarcaciones + (eleccion-1))).tripulacion;
+    persona * end = ((*(embarcaciones + (eleccion-1))).tripulacion + ((*(embarcaciones + (eleccion-1))).tripulacion_actual)+1);
 
     for(; start < end; start++){
-        printf("%s %s, %d años, %s", start->nombre, start->apellidos, start->edad, start->rol);
+        printf("%s %s, %d años, %u\n", start->nombre, start->apellidos, start->edad, start->rol);
     }
 }
 
-void add (t_function function, void* array, int *fin){
+void add (t_function function, embarcacion * array, int *fin){
     (*function)(array, fin);
 }
 
