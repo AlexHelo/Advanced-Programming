@@ -3,6 +3,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+typedef void (*t_function)(void * , int );
+
+/* Función genérica */
+void add(t_function, void *, int);
+
+
 typedef enum
 {
     arponero,
@@ -60,7 +66,7 @@ char *getln()
     return line;
 }
 
-void agregarEmbarcacion(void * embarcaciones, int fin)
+void agregarEmbarcacion(void * embarcaciones, int* fin)
 {
     embarcacion newBarco;
 
@@ -75,12 +81,28 @@ void agregarEmbarcacion(void * embarcaciones, int fin)
     printf(" Agregue  el número máximo de tripulantes: \n");
     scanf("%d", &newBarco.max_tripulantes);
 
-    *(embarcacion *)(embarcaciones + fin + 1) = newBarco;
+    *(embarcacion *)(embarcaciones + *fin + 1) = newBarco;
 
-    printf("%s\n", ((embarcacion *)(embarcaciones + fin + 1))->nombre);
-    printf("%f\n", ((embarcacion *)(embarcaciones + fin + 1))->eslora);
-    printf("%f\n", ((embarcacion *)(embarcaciones + fin + 1))->manga);
-    printf("%d\n", ((embarcacion *)(embarcaciones + fin + 1))->max_tripulantes);
+    printf("%s\n", ((embarcacion *)(embarcaciones + *fin + 1))->nombre);
+    printf("%f\n", ((embarcacion *)(embarcaciones + *fin + 1))->eslora);
+    printf("%f\n", ((embarcacion *)(embarcaciones + *fin + 1))->manga);
+    printf("%d\n", ((embarcacion *)(embarcaciones + *fin + 1))->max_tripulantes);
+    *fin ++;
+}
+
+void imprimirEmbarcaciones(void * embarcaciones, int fin){
+        embarcacion * aux = embarcaciones;
+        embarcacion * last = embarcaciones + fin;
+    printf("Estoy en el metodo!\n");
+    printf("fin: %d", fin);
+
+        for (; aux < last; ++aux) {
+            printf("Imprimiendo");
+            printf("%s\n", aux->nombre);
+            printf("%f\n", aux->eslora);
+            printf("%f\n", aux->manga);
+            printf("%d\n", aux->max_tripulantes);
+        }
 }
 
 void setTripulante(int opcion)
@@ -106,6 +128,11 @@ void boatMenu() {
     printf("--- Opciones --- \n1-Incorporar Barcos\n2-Incorporar Tripulantes\n3-Ver Barcos\n4-Ver Tripulantes\n0-Terminar\nEscoge tu opcion: ");
 
 }
+
+void add (t_function function, void* array, int fin){
+    (*function)(array, fin);
+}
+
 
 
 #endif /* funciones_h */

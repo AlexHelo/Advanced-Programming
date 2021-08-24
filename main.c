@@ -5,28 +5,22 @@
 
 typedef void (*opcion_t)(int);
 void menu_f(opcion_t *opciones);
-void imprimirEmbarcaciones(embarcacion * inicio, int fin)
-{
-    for (embarcacion * aux = inicio; aux < fin; ++aux) {
-        printf("%s\t", aux->nombre, " %f ", aux->eslora, " %f ", aux->manga, " %d", aux->max_tripulantes);
-    }
 
-    printf("\n");
-}
 int main()
 {
+    int embarcacionesCount = 0;
     embarcacion * embarcaciones = (embarcacion *) malloc(sizeof(embarcacion));
     opcion_t *menu = (opcion_t *)malloc(4 * sizeof(opcion_t));
 
-    agregarEmbarcacion(embarcaciones, 0);
+    agregarEmbarcacion(embarcaciones, &embarcacionesCount);
 
     imprimirEmbarcaciones(embarcaciones, 1);
 
 
-    *menu = agregarEmbarcacion;
-    *(menu + 1) = setTripulante;
-    *(menu + 2) = getBarcos;
-    *(menu + 3) = getTripulante;
+    *menu = add;
+    *(menu + 1) = add;
+    *(menu + 2) = add;
+    *(menu + 3) = add;
 
     menu_f(menu);
 
