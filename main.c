@@ -10,7 +10,7 @@ int main()
 {
     static int embarcacionesCount = 0;
     static embarcacion * embarcaciones;
-    embarcaciones = (embarcacion *) malloc(sizeof(embarcacion));
+    embarcaciones = (embarcacion *) malloc(10 * sizeof(embarcacion));
     opcion_t *menu = (opcion_t *)malloc(4 * sizeof(opcion_t));
 
     *menu = agregarEmbarcacion;
