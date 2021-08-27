@@ -19,7 +19,17 @@ int main()
     *(menu + 3) = imprimirTripulantes;
 
     menu_f(menu, embarcaciones, &embarcacionesCount);
+    embarcacion * end = embarcaciones + embarcacionesCount;
 
+    for(embarcacion* aux = embarcaciones; aux < end; aux++){
+        free(aux->nombre);
+        persona * end1 = aux->tripulacion + aux->tripulacion_actual;
+        for (persona * aux1 = aux->tripulacion; aux1 < end1; aux1++){
+            free(aux1->nombre);
+            free(aux1->apellidos);
+        }
+        free(aux->tripulacion);
+    }
     free(embarcaciones);
     free(menu);
     return 0;
