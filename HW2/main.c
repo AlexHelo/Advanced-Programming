@@ -1,11 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 
- struct tVector {
+#define N 10;
+typedef struct  {
     void **items;
     int capacity;
     int total;
-} ;
+} tVector;
 
 
 int main() {
@@ -14,22 +15,23 @@ int main() {
 }
 
 
-struct tVector vector(){
-    struct tVector v;
+tVector vector() {
 
-    struct v *capacity = 0;
-    struct v *total = 0;
-    struct v *items = malloc(sizeof(void *) * v.capacity);
+    tVector v;
+
+    v.capacity = N;
+    v.total = 0;
+    v.items = malloc(v.capacity * sizeof(void *));
 
     return v;
 }
 
-struct tVector vectorSize(size_t n){
-    struct tVector v;
+tVector vectorSize(size_t n){
+    tVector v;
 
-    struct v *capacity = n;
-    struct v *total = 0;
-    struct v *items = malloc(sizeof(void *) * v.capacity);
+    v.capacity = n;
+    v.total = 0;
+    v.items = malloc(v.capacity * sizeof(void *));
 
     return v;
 }
