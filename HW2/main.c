@@ -173,6 +173,19 @@ void printNodes(struct Node * node) {
 
 }
 
+void printInt(struct Node* node){
+    if (empty(node)) {
+        printf("Empty list");
+        return;
+    }
+    while (node)
+    {
+        printf(" %4d", *(int *)node->content);
+        node = node->next;
+    }
+    printf("\n");
+}
+
 void freeNodes(struct Node * node) {
     while(node) {
         struct Node * temp = node;
@@ -248,17 +261,34 @@ struct Node * eraseRange(struct Node * node, int start, int end) {
 }
 
 int main() {
-    int integer = 5;
-    char * string = "hola";
-    char * other = "aqui";
-    char * str = "alex";
-    size_t n = 2;
-    struct Node * test = vectorCopy(5, string);
 
-    test = insertN(test, 0, 3, other);
-    printNodes(test);
-    printf("%d\n", countNodes(test));
-    freeNodes(test);
+    int uno = 1;
+    int dos = 2;
+    int tres = 3;
+    size_t m = 3;
+
+    struct Node * intVector = vector();
+    intVector = insertN(intVector, 0, 2 ,uno);
+    printInt(intVector);
+
+
+
+//    char * a = "a";
+//    char * b = "b";
+//    char * c = "c";
+//    size_t n = 3;
+//
+//    struct Node * charVector = vector();
+//    pushBack(charVector, a);
+//    charVector = insertN(charVector, 1, 1 ,b);
+//    insert(charVector, 2,c);
+//
+//     printNodes(charVector);
+
+
+
+
+//    freeNodes(charVector);
 
     return 0;
 }
