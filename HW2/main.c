@@ -7,6 +7,11 @@ struct Node {
     void * content;
 };
 
+struct Libro {
+    char* titulo;
+    int paginas;
+};
+
 int countNodes(struct Node * node) {
     struct Node * temp = node;
     int count = 0;
@@ -165,12 +170,12 @@ void printNodes(struct Node * node) {
         return;
     }
     while(node) {
-        printf("\n");
+
         if(node->content != NULL)
         printf(node->content);
         node = node->next;
     }
-
+    printf("\n");
 }
 
 void printInt(struct Node* node){
@@ -180,11 +185,25 @@ void printInt(struct Node* node){
     }
     while (node)
     {
-        printf(" %4d", *(int *)node->content);
+        printf(" %4d", (int *)node->content);
         node = node->next;
     }
     printf("\n");
 }
+
+void printLibro(struct Node* node){
+    if (empty(node)) {
+        printf("Empty list");
+        return;
+    }
+    while (node)
+    {
+        printf("Title: %s Pages: %d \n", ((struct Libro*) node->content)->titulo,((struct Libro*) node->content)->paginas);
+        node = node->next;
+    }
+    printf("\n");
+}
+
 
 void freeNodes(struct Node * node) {
     while(node) {
@@ -273,22 +292,39 @@ int main() {
 
 
 
-//    char * a = "a";
-//    char * b = "b";
-//    char * c = "c";
-//    size_t n = 3;
-//
-//    struct Node * charVector = vector();
-//    pushBack(charVector, a);
-//    charVector = insertN(charVector, 1, 1 ,b);
-//    insert(charVector, 2,c);
-//
-//     printNodes(charVector);
+    char * a = "a";
+    char * b = "b";
+    char * c = "c";
+    size_t n = 3;
 
+    struct Node * charVector = vector();
+    pushBack(charVector, a);
+    charVector = insertN(charVector, 1, 1 ,b);
+    insert(charVector, 2,c);
 
+     printNodes(charVector);
 
+     struct Libro hp;
+     hp.titulo="Harry Potter";
+     hp.paginas = 389;
+     struct Libro lotr;
+     lotr.titulo="Lord of the Rings";
+     lotr.paginas = 789;
+     struct Libro got;
+     got.titulo="Game of Thrones";
+     got.paginas = 987;
+     struct Libro sw;
+     sw.titulo = " Star Wars";
+     sw.paginas = 542;
 
-//    freeNodes(charVector);
+     struct Node * libroVector = vector();
+
+     libroVector = insertN(libroVector, 0, 2, &hp);
+    pushBack(libroVector, &lotr);
+
+    printLibro(libroVector);
+
+    freeNodes(charVector);
 
     return 0;
 }
