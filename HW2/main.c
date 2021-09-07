@@ -132,22 +132,27 @@ struct Node * insertN(struct Node * node, int pos, size_t n, void * content) {
 
 void pushBack(struct Node * node, void * content) {
 
-    if(node->content == NULL){
+    if(node->next == NULL) {
         node->content = content;
         return;
-}
+    }
 
     struct Node * temp = node;
 
 
-
+    struct Node * previous;
     while(temp->next) {
         temp = temp->next;
+    }
+    if (temp->content == NULL) {
+        temp->content = content;
+        return;
     }
     struct Node * newNode = (struct Node *) malloc(sizeof(struct Node));
     newNode->content = malloc(sizeof(void *));
     newNode->content = content;
     temp->next = newNode;
+    return;
 }
 
 void popBack(struct Node * node) {
@@ -320,7 +325,7 @@ int main() {
      struct Node * libroVector = vector();
 
      libroVector = insertN(libroVector, 0, 2, &hp);
-    pushBack(libroVector, &lotr);
+     pushBack(libroVector, &lotr);
 
     printLibro(libroVector);
 
