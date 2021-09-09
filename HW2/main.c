@@ -209,6 +209,11 @@ void printLibro(struct Node* node){
     printf("\n");
 }
 
+typedef void (*printer)(struct Node* node);
+
+void printAll(struct Node* node, printer print){
+    (*print)(node);
+}
 
 void freeNodes(struct Node * node) {
     while(node) {
@@ -328,6 +333,8 @@ int main() {
      pushBack(libroVector, &lotr);
 
     printLibro(libroVector);
+
+    printAll(libroVector, &printLibro);
 
     freeNodes(charVector);
 
