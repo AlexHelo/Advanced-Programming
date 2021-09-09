@@ -297,9 +297,11 @@ int main() {
     size_t m = 3;
 
     struct Node * intVector = vector();
-    intVector = insertN(intVector, 0, 2 ,uno);
-    printInt(intVector);
+    pushBack(intVector, dos);
+    intVector = insertN(intVector, 0, 1 ,uno);
+    insert(intVector, 2 , tres);
 
+    printAll(intVector, &printInt);
 
 
     char * a = "a";
@@ -312,7 +314,9 @@ int main() {
     charVector = insertN(charVector, 1, 1 ,b);
     insert(charVector, 2,c);
 
-     printNodes(charVector);
+
+
+     printAll(charVector, &printNodes);
 
      struct Libro hp;
      hp.titulo="Harry Potter";
@@ -332,7 +336,6 @@ int main() {
      libroVector = insertN(libroVector, 0, 2, &hp);
      pushBack(libroVector, &lotr);
 
-    printLibro(libroVector);
 
     printAll(libroVector, &printLibro);
 
